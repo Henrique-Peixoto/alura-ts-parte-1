@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "outDir": "dist/js",
+        "target": "es6",
+        "skipLibCheck": true,
+        "maxNodeModuleJsDepth": 0,
+        "noEmitOnError": true,
+        "noImplicitAny": true
+    },
+    "include": ["app/**/*"],
+    "exclude": ["node_modules"]
+}
