@@ -1,6 +1,5 @@
 export class Negociacao {
-    constructor(_data, quantidade, // Tipos primitivos só são modificáveis através de atribuição
-    valor) {
+    constructor(_data, quantidade, valor) {
         this._data = _data;
         this.quantidade = quantidade;
         this.valor = valor;
@@ -11,5 +10,11 @@ export class Negociacao {
     }
     get volume() {
         return this.quantidade * this.valor;
+    }
+    static criaDe(dataStr, quantidadeStr, valorStr) {
+        const date = new Date(dataStr);
+        const quantidade = parseInt(quantidadeStr);
+        const valor = parseFloat(valorStr);
+        return new Negociacao(date, quantidade, valor);
     }
 }
