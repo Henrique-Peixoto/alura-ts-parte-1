@@ -4,17 +4,17 @@ export class Negociacao {
         this.quantidade = quantidade;
         this.valor = valor;
     }
+    get volume() {
+        return this.quantidade * this.valor;
+    }
     get data() {
         const data = new Date(this._data.getTime());
         return data;
     }
-    get volume() {
-        return this.quantidade * this.valor;
-    }
-    static criaDe(dataStr, quantidadeStr, valorStr) {
-        const date = new Date(dataStr);
-        const quantidade = parseInt(quantidadeStr);
-        const valor = parseFloat(valorStr);
+    static criaDe(dataString, quantidadeString, valorString) {
+        const date = new Date(dataString);
+        const quantidade = parseInt(quantidadeString);
+        const valor = parseFloat(valorString);
         return new Negociacao(date, quantidade, valor);
     }
 }
