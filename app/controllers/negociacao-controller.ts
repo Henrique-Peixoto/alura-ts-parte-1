@@ -24,6 +24,7 @@ export class NegociacaoController {
 
         if (!this.ehDiaUtil(negociacao.data)) {
             this.mensagemView.update('Apenas negociações em dias úteis são aceitas.')
+            return 
         }
 
         this.negociacoes.adiciona(negociacao)
@@ -44,6 +45,7 @@ export class NegociacaoController {
     }
 
     private ehDiaUtil(data: Date): boolean {
+        console.log(data.getDay())
         return data.getDay() > DiasDaSemana.DOMINGO 
             && data.getDay() < DiasDaSemana.SABADO
     }
