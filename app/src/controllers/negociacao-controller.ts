@@ -2,6 +2,7 @@ import { logarTempoDeExecucao } from '../decorators/logar-tempo-de-execucao.js';
 import { DiasDaSemana } from '../enums/dias-da-semana.js';
 import { Negociacao } from '../models/negociacao.js';
 import { Negociacoes } from '../models/negociacoes.js';
+import { NegociacoesService } from '../services/negociacoes-service.js';
 import { MensagemView } from '../views/mensagem-view.js';
 import { NegociacoesView } from '../views/negociacoes-view.js';
 
@@ -10,13 +11,14 @@ export class NegociacaoController {
     private inputQuantidade: HTMLInputElement;
     private inputValor: HTMLInputElement;
     private negociacoes = new Negociacoes();
-    private negociacoesView = new NegociacoesView('#negociacoesView', true);
+    private negociacoesView = new NegociacoesView('#negociacoesView');
     private mensagemView = new MensagemView('#mensagemView');
+    private negociacoesService = new NegociacoesService()
 
     constructor() {
-        this.inputData = <HTMLInputElement>document.querySelector('#data');
-        this.inputQuantidade = document.querySelector('#quantidade') as HTMLInputElement;
-        this.inputValor = document.querySelector('#valor') as HTMLInputElement;
+        // this.inputData = <HTMLInputElement>document.querySelector('#data');
+        // this.inputQuantidade = document.querySelector('#quantidade') as HTMLInputElement;
+        // this.inputValor = document.querySelector('#valor') as HTMLInputElement;
         this.negociacoesView.update(this.negociacoes);
     }
 
@@ -57,5 +59,17 @@ export class NegociacaoController {
     private atualizaView(): void {
         this.negociacoesView.update(this.negociacoes);
         this.mensagemView.update('Negociação adicionada com sucesso');
+    }
+
+    importaDados(): void {
+        this.negociacoesService
+        .obterNegociacoesDoDia()
+        .then(negociacoes => {
+            for (let negociacao of negociacoes) {
+                this.negociacoes.adiciona(negociacao)
+            }
+
+            this.negociacoesView.update(this.negociacoes)
+        })
     }
 }
