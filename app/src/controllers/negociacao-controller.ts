@@ -3,6 +3,7 @@ import { DiasDaSemana } from '../enums/dias-da-semana.js';
 import { Negociacao } from '../models/negociacao.js';
 import { Negociacoes } from '../models/negociacoes.js';
 import { NegociacoesService } from '../services/negociacoes-service.js';
+import { imprimir } from '../utils/imprimir.js';
 import { MensagemView } from '../views/mensagem-view.js';
 import { NegociacoesView } from '../views/negociacoes-view.js';
 
@@ -64,8 +65,15 @@ export class NegociacaoController {
     importaDados(): void {
         this.negociacoesService
         .obterNegociacoesDoDia()
-        .then(negociacoes => {
-            for (let negociacao of negociacoes) {
+        .then(negociacoesDeHoje => {
+            return negociacoesDeHoje.filter(negociacaoDeHoje => {
+                return !this.negociacoes.lista().some(negociacao => {
+                    return negociacao.ehIgual(negociacaoDeHoje)
+                })
+            })
+        })
+        .then(negociacoesDeHoje => {
+            for (let negociacao of negociacoesDeHoje) {
                 this.negociacoes.adiciona(negociacao)
             }
 

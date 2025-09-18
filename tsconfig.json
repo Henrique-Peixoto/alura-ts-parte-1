@@ -6,7 +6,9 @@
         "noImplicitAny": true,
         "removeComments": true,
         "strictNullChecks": true,
-        "experimentalDecorators": true
+        "experimentalDecorators": true,
+        // "sourceMap": true -> gera arquivos de sourcemap que permitem
+        // acessar os arquivos .ts no navegador para fins de debugging.
     },
     "include": ["app/src/**/*"]
 }
